@@ -5,5 +5,22 @@ package com.louisgeek.louislistviewdemo.commadapter;
  */
 public class GoodsBean  {
     private String goodsTitle;
-    private String goodsContetn;
+
+    public String getGoodsTitle() {
+        return goodsTitle;
+    }
+
+    public void setGoodsTitle(String goodsTitle) {
+        this.goodsTitle = goodsTitle;
+    }
+
+    public int getGoodsImgResId() {
+        return goodsImgResId;
+    }
+
+    public void setGoodsImgResId(int goodsImgResId) {
+        this.goodsImgResId = goodsImgResId;
+    }
+
+    private int goodsImgResId;
 }

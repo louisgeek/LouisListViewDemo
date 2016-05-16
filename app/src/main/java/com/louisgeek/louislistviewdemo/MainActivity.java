@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.louisgeek.louislistviewdemo.commadapter.GoodsBean;
 import com.louisgeek.louislistviewdemo.commadapter.MyCommBaseAdapter;
 import com.louisgeek.louislistviewdemo.commadapter.NewsBean;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ListView idlv2 = (ListView) findViewById(R.id.id_lv_2);
         TextView idemptytv = (TextView) findViewById(R.id.id_empty_tv);
         ListView idlv = (ListView) findViewById(R.id.id_lv);
 
@@ -50,14 +52,36 @@ public class MainActivity extends AppCompatActivity {
 //功能2
 
         List<NewsBean> newsBeanList=new ArrayList<>();
-        for (int i = 0; i <20; i++) {
+        for (int i = 0; i <4; i++) {
             NewsBean newsBean=new NewsBean();
             newsBean.setNewsTitle("title_"+i);
             newsBean.setNewsContent("content_"+i);
             newsBeanList.add(newsBean);
         }
-        MyCommBaseAdapter myCommBaseAdapter=new MyCommBaseAdapter(newsBeanList,this);
+        List<GoodsBean> goodsBeanList=new ArrayList<>();
+        for (int i = 0; i <3; i++) {
+            GoodsBean goodsBean=new GoodsBean();
+            goodsBean.setGoodsTitle("goodstitle_" + i);
+            goodsBean.setGoodsImgResId(R.mipmap.ic_launcher);
+            goodsBeanList.add(goodsBean);
+        }
+        MyCommBaseAdapter myCommBaseAdapter=new MyCommBaseAdapter<NewsBean>(newsBeanList,R.layout.news_item) {
+            @Override
+            public void bindView(ViewHolder holder, NewsBean newsBean) {
+                holder.setText(R.id.id_tv_title,newsBean.getNewsTitle());
+                holder.setText(R.id.id_tv_content,newsBean.getNewsContent());
+            }
+        };
         idlv.setAdapter(myCommBaseAdapter);
+        MyCommBaseAdapter myCommBaseAdapter2=new MyCommBaseAdapter<GoodsBean>(goodsBeanList,R.layout.goods_item){
+
+            @Override
+            public void bindView(ViewHolder holder, GoodsBean goodsBean) {
+                holder.setImageResource(R.id.id_img,goodsBean.getGoodsImgResId());
+                holder.setText(R.id.id_tv_goods_title,goodsBean.getGoodsTitle());
+            }
+        };
+        idlv2.setAdapter(myCommBaseAdapter2);
 
     }
 }
