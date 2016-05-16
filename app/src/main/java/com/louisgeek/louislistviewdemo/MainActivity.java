@@ -2,6 +2,9 @@ package com.louisgeek.louislistviewdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         hasCheckedStateBeanList=new ArrayList<>();
-        for (int i = 0; i <20 ; i++) {
+        for (int i = 0; i <0 ; i++) {
             HasCheckedStateBean hasCheckedStateBean=new HasCheckedStateBean();
             if (i%2==0) {
                 hasCheckedStateBean.setCheckedbox_isChecked(true);
@@ -38,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         MyBaseAdapter myBaseAdapter=new MyBaseAdapter(hasCheckedStateBeanList,this);
         idlv.setAdapter(myBaseAdapter);
 
-        idlv.setEmptyView(idemptytv);
+        View content_empty= LayoutInflater.from(this).inflate(R.layout.content_empty, null);
+        ((ViewGroup)idlv.getParent()).addView(content_empty);//依托listview  要居中是不是得让listview居中？
+
+        idlv.setEmptyView(content_empty);
+
+
+
     }
 }
