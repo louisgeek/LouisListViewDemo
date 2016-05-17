@@ -1,13 +1,16 @@
 package com.louisgeek.louislistviewdemo;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.louisgeek.louislistviewdemo.commadapter.GoodsBean;
-import com.louisgeek.louislistviewdemo.commadapter.MyCommBaseAdapter;
 import com.louisgeek.louislistviewdemo.commadapter.NewsBean;
+import com.louisgeek.louislistviewdemo.commonadapter.LouisCommonAdapter;
+import com.louisgeek.louislistviewdemo.commonadapter.LouisCommonViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,18 +57,18 @@ public class MainActivity extends AppCompatActivity {
         List<NewsBean> newsBeanList=new ArrayList<>();
         for (int i = 0; i <4; i++) {
             NewsBean newsBean=new NewsBean();
-            newsBean.setNewsTitle("title_"+i);
-            newsBean.setNewsContent("content_"+i);
+            newsBean.setNewsTitle("title_" + i);
+            newsBean.setNewsContent("content_" + i);
             newsBeanList.add(newsBean);
         }
-        List<GoodsBean> goodsBeanList=new ArrayList<>();
+        final List<GoodsBean> goodsBeanList=new ArrayList<>();
         for (int i = 0; i <3; i++) {
             GoodsBean goodsBean=new GoodsBean();
             goodsBean.setGoodsTitle("goodstitle_" + i);
             goodsBean.setGoodsImgResId(R.mipmap.ic_launcher);
             goodsBeanList.add(goodsBean);
         }
-        MyCommBaseAdapter myCommBaseAdapter=new MyCommBaseAdapter<NewsBean>(newsBeanList,R.layout.news_item) {
+       /* MyCommBaseAdapter myCommBaseAdapter=new MyCommBaseAdapter<NewsBean>(newsBeanList,R.layout.news_item) {
             @Override
             public void bindView(ViewHolder holder, NewsBean newsBean) {
                 holder.setText(R.id.id_tv_title,newsBean.getNewsTitle());
@@ -81,7 +84,39 @@ public class MainActivity extends AppCompatActivity {
                 holder.setText(R.id.id_tv_goods_title,goodsBean.getGoodsTitle());
             }
         };
-        idlv2.setAdapter(myCommBaseAdapter2);
+        idlv2.setAdapter(myCommBaseAdapter2);*/
 
+        List<String> stringList=new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            stringList.add("文本SS"+i);
+        }
+        LouisCommonAdapter commonAdapter=new LouisCommonAdapter(this,stringList,R.layout.news_item) {
+            @Override
+            public void getViewInner(int position, LouisCommonViewHolder myCommonViewHolder) {
+                //通过getView获取控件
+                TextView tv = myCommonViewHolder.getView(R.id.id_tv_title);
+                //使用
+                tv.setText(dataList.get(position).toString());
+            }
+        };
+
+        idlv.setAdapter(commonAdapter);
+
+        LouisCommonAdapter commonAdapter2=new LouisCommonAdapter(this,goodsBeanList,R.layout.goods_item) {
+            @Override
+            public void getViewInner(int position, LouisCommonViewHolder myCommonViewHolder) {
+                //通过getView获取控件
+                TextView tv = myCommonViewHolder.getView(R.id.id_tv_goods_title);
+                //使用
+                tv.setText(goodsBeanList.get(position).getGoodsTitle());
+                //通过getView获取控件
+                ImageView iv = myCommonViewHolder.getView(R.id.id_img);
+                //使用
+                iv.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.ic_launcher));
+            }
+        };
+
+
+        idlv2.setAdapter(commonAdapter2);
     }
 }
