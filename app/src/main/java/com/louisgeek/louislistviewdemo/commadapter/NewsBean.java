@@ -32,4 +32,14 @@ public class NewsBean {
 
     private  String newsTitle;
     private  String newsContent;
+
+    public int getLayoutType() {
+        return layoutType;
+    }
+
+    public void setLayoutType(int layoutType) {
+        this.layoutType = layoutType;
+    }
+
+    private int layoutType;
 }

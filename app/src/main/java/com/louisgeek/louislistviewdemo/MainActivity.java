@@ -1,16 +1,12 @@
 package com.louisgeek.louislistviewdemo;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.louisgeek.louislistviewdemo.commadapter.GoodsBean;
 import com.louisgeek.louislistviewdemo.commadapter.NewsBean;
-import com.louisgeek.louislistviewdemo.commonadapter.LouisCommonAdapter;
-import com.louisgeek.louislistviewdemo.commonadapter.LouisCommonViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
 //功能2
 
         List<NewsBean> newsBeanList=new ArrayList<>();
-        for (int i = 0; i <4; i++) {
+        for (int i = 0; i <6; i++) {
             NewsBean newsBean=new NewsBean();
             newsBean.setNewsTitle("title_" + i);
             newsBean.setNewsContent("content_" + i);
+            newsBean.setLayoutType(i%3);
             newsBeanList.add(newsBean);
         }
         final List<GoodsBean> goodsBeanList=new ArrayList<>();
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         };
         idlv2.setAdapter(myCommBaseAdapter2);*/
 
-        List<String> stringList=new ArrayList<>();
+       /* List<String> stringList=new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             stringList.add("文本SS"+i);
         }
@@ -117,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        idlv2.setAdapter(commonAdapter2);
+        idlv2.setAdapter(commonAdapter2);*/
+
+        MutiLayoutAdapter mutiLayoutAdapter=new MutiLayoutAdapter(newsBeanList,this);
+        idlv.setAdapter(mutiLayoutAdapter);
     }
 }
