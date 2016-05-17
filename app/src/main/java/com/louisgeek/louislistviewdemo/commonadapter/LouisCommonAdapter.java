@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 /**
+ * 抽象类
  * Created by louisgeek on 2016/5/17.
  */
 public abstract class LouisCommonAdapter<T> extends BaseAdapter {
